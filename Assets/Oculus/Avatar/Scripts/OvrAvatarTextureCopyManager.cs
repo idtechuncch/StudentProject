@@ -15,15 +15,15 @@ public class OvrAvatarTextureCopyManager : MonoBehaviour
         public int DstElement;
 
         public CopyTextureParams(
-            Texture src, 
-            Texture dst, 
-            int mip, 
-            int srcSize, 
+            Texture src,
+            Texture dst,
+            int mip,
+            int srcSize,
             int dstElement)
         {
             Src = src;
             Dst = dst;
-            Mip = mip;  
+            Mip = mip;
             SrcSize = srcSize;
             DstElement = dstElement;
         }
@@ -59,11 +59,11 @@ public class OvrAvatarTextureCopyManager : MonoBehaviour
     }
 
     public void CopyTexture(
-        Texture src, 
-        Texture dst, 
-        int mipLevel, 
-        int mipSize, 
-        int dstElement, 
+        Texture src,
+        Texture dst,
+        int mipLevel,
+        int mipSize,
+        int dstElement,
         bool useQueue = true)
     {
         bool queued = false;
@@ -97,34 +97,34 @@ public class OvrAvatarTextureCopyManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         Graphics.CopyTexture(
-            copyTextureParams.Src, 
-            0, 
-            copyTextureParams.Mip, 
-            0, 
-            0, 
-            copyTextureParams.SrcSize, 
+            copyTextureParams.Src,
+            0,
+            copyTextureParams.Mip,
+            0,
+            0,
             copyTextureParams.SrcSize,
-            copyTextureParams.Dst, 
-            copyTextureParams.DstElement, 
-            copyTextureParams.Mip, 
-            0, 
+            copyTextureParams.SrcSize,
+            copyTextureParams.Dst,
+            copyTextureParams.DstElement,
+            copyTextureParams.Mip,
+            0,
             0);
     }
 
     private void CopyTexture(CopyTextureParams copyTextureParams)
     {
         Graphics.CopyTexture(
-            copyTextureParams.Src, 
-            0, 
-            copyTextureParams.Mip, 
-            0, 
-            0, 
-            copyTextureParams.SrcSize, 
+            copyTextureParams.Src,
+            0,
+            copyTextureParams.Mip,
+            0,
+            0,
             copyTextureParams.SrcSize,
-            copyTextureParams.Dst, 
-            copyTextureParams.DstElement, 
-            copyTextureParams.Mip, 
-            0, 
+            copyTextureParams.SrcSize,
+            copyTextureParams.Dst,
+            copyTextureParams.DstElement,
+            copyTextureParams.Mip,
+            0,
             0);
     }
 }

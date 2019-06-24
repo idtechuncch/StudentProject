@@ -54,7 +54,7 @@ public class OvrAvatarMaterialManager : MonoBehaviour
         public float[] ReflectionIntensities;
     }
 
-    private readonly string[] TextureTypeToShaderProperties = 
+    private readonly string[] TextureTypeToShaderProperties =
     {
         "_MainTex",       // TextureType.DiffuseTextures = 0
         "_NormalMap",     // TextureType.NormalMaps
@@ -80,7 +80,7 @@ public class OvrAvatarMaterialManager : MonoBehaviour
     private AvatarMaterialPropertyBlock LocalAvatarMaterialPropertyBlock;
 
     // cache the previous shader when swapping in the loading shader.
-    private Shader CombinedShader; 
+    private Shader CombinedShader;
     // Shader properties
     public static string AVATAR_SHADER_LOADER = "OvrAvatar/Avatar_Mobile_Loader";
     public static string AVATAR_SHADER_MAINTEX = "_MainTex";
@@ -154,14 +154,15 @@ public class OvrAvatarMaterialManager : MonoBehaviour
                  localProps.Textures[0].format,
                 true,
                 QualitySettings.activeColorSpace == ColorSpace.Gamma ? false : true
-            ) { filterMode = FilterMode.Trilinear };
+            )
+            { filterMode = FilterMode.Trilinear };
 
-            TextureArrays[i].Textures 
+            TextureArrays[i].Textures
                 = new Texture2D[LocalAvatarConfig.ComponentMaterialProperties.Length];
 
             for (int j = 0; j < LocalAvatarConfig.ComponentMaterialProperties.Length; j++)
             {
-                TextureArrays[i].Textures[j] 
+                TextureArrays[i].Textures[j]
                     = LocalAvatarConfig.ComponentMaterialProperties[j].Textures[i];
             }
 
@@ -187,11 +188,11 @@ public class OvrAvatarMaterialManager : MonoBehaviour
             {
                 int mipSize = texArrayResolution / currentMipSize;
                 TextureCopyManager.CopyTexture(
-                    textures[i], 
-                    texArray, 
-                    mipLevel, 
-                    mipSize, 
-                    i, 
+                    textures[i],
+                    texArray,
+                    mipLevel,
+                    mipSize,
+                    i,
                     true);
 
                 currentMipSize /= 2;
@@ -205,13 +206,13 @@ public class OvrAvatarMaterialManager : MonoBehaviour
         {
             for (int i = 0; i < LocalAvatarConfig.ComponentMaterialProperties.Length; i++)
             {
-                LocalAvatarConfig.MaterialPropertyBlock.Colors[i] 
+                LocalAvatarConfig.MaterialPropertyBlock.Colors[i]
                     = LocalAvatarConfig.ComponentMaterialProperties[i].Color;
-                LocalAvatarConfig.MaterialPropertyBlock.DiffuseIntensities[i] 
+                LocalAvatarConfig.MaterialPropertyBlock.DiffuseIntensities[i]
                     = LocalAvatarConfig.ComponentMaterialProperties[i].DiffuseIntensity;
-                LocalAvatarConfig.MaterialPropertyBlock.RimIntensities[i] 
+                LocalAvatarConfig.MaterialPropertyBlock.RimIntensities[i]
                     = LocalAvatarConfig.ComponentMaterialProperties[i].RimIntensity;
-                LocalAvatarConfig.MaterialPropertyBlock.ReflectionIntensities[i] 
+                LocalAvatarConfig.MaterialPropertyBlock.ReflectionIntensities[i]
                     = LocalAvatarConfig.ComponentMaterialProperties[i].ReflectionIntensity;
             }
         }
@@ -220,13 +221,13 @@ public class OvrAvatarMaterialManager : MonoBehaviour
     private void ApplyMaterialPropertyBlock()
     {
         MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
-        materialPropertyBlock.SetVectorArray(AVATAR_SHADER_COLOR, 
+        materialPropertyBlock.SetVectorArray(AVATAR_SHADER_COLOR,
             LocalAvatarConfig.MaterialPropertyBlock.Colors);
-        materialPropertyBlock.SetFloatArray(AVATAR_SHADER_DIFFUSEINTENSITY, 
+        materialPropertyBlock.SetFloatArray(AVATAR_SHADER_DIFFUSEINTENSITY,
             LocalAvatarConfig.MaterialPropertyBlock.DiffuseIntensities);
-        materialPropertyBlock.SetFloatArray(AVATAR_SHADER_RIMINTENSITY, 
+        materialPropertyBlock.SetFloatArray(AVATAR_SHADER_RIMINTENSITY,
             LocalAvatarConfig.MaterialPropertyBlock.RimIntensities);
-        materialPropertyBlock.SetFloatArray(AVATAR_SHADER_REFLECTIONINTENSITY, 
+        materialPropertyBlock.SetFloatArray(AVATAR_SHADER_REFLECTIONINTENSITY,
             LocalAvatarConfig.MaterialPropertyBlock.ReflectionIntensities);
         TargetRenderer.GetClosestReflectionProbes(ReflectionProbes);
 
@@ -285,8 +286,8 @@ public class OvrAvatarMaterialManager : MonoBehaviour
                 if (props[propIndex].Textures[index] == null)
                 {
                     throw new System.Exception(
-                        props[propIndex].TypeIndex.ToString() 
-                        + "Invalid: " 
+                        props[propIndex].TypeIndex.ToString()
+                        + "Invalid: "
                         + ((TextureType)index).ToString());
                 }
 
@@ -299,16 +300,16 @@ public class OvrAvatarMaterialManager : MonoBehaviour
         {
             for (var propIndex = 1; propIndex < props.Length; propIndex++)
             {
-                if (props[propIndex - 1].Textures[textureIndex].height 
+                if (props[propIndex - 1].Textures[textureIndex].height
                     != props[propIndex].Textures[textureIndex].height)
                 {
                     throw new System.Exception(
-                        props[propIndex].TypeIndex.ToString() 
-                        + " Mismatching Resolutions: " 
+                        props[propIndex].TypeIndex.ToString()
+                        + " Mismatching Resolutions: "
                         + ((TextureType)textureIndex).ToString()
                         + " "
-                        + props[propIndex - 1].Textures[textureIndex].height 
-                        + " vs " 
+                        + props[propIndex - 1].Textures[textureIndex].height
+                        + " vs "
                         + props[propIndex].Textures[textureIndex].height
                         + " Ensure you are using ASTC texture compression on Android or turn off CombineMeshes");
                 }
@@ -354,7 +355,7 @@ public class OvrAvatarMaterialManager : MonoBehaviour
         // Swap back main shader
         TargetRenderer.sharedMaterial.SetFloat(AVATAR_SHADER_LOADING_DIMMER, 1f);
         TargetRenderer.sharedMaterial.shader = CombinedShader;
-        
+
         // Restore shader properties
         TargetRenderer.sharedMaterial.SetOverrideTag("RenderType", renderTag);
         TargetRenderer.sharedMaterial.SetInt("_SrcBlend", srcBlend);

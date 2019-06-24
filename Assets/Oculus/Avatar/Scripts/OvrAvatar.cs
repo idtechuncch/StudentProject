@@ -95,7 +95,7 @@ public class OvrAvatar : MonoBehaviour
     public Shader Loader_VertFrag_CombinedMesh;
     public Shader EyeLens;
 
- #if AVATAR_INTERNAL
+#if AVATAR_INTERNAL
     public AvatarControllerBlend BlendController;
     public UnityEvent AssetsDoneLoading = new UnityEvent();
 #endif
@@ -116,11 +116,11 @@ public class OvrAvatar : MonoBehaviour
     List<float[]> voiceUpdates = new List<float[]>();
 
 #if UNITY_ANDROID && UNITY_5_5_OR_NEWER
-    #if !UNITY_EDITOR || QA_CONFIGURATION
+#if !UNITY_EDITOR || QA_CONFIGURATION
         bool CombineMeshes = true;
-    #else
-        bool CombineMeshes = false;
-    #endif
+#else
+    bool CombineMeshes = false;
+#endif
 #else
     bool CombineMeshes = false;
 #endif
@@ -729,7 +729,7 @@ public class OvrAvatar : MonoBehaviour
 
     void RecordFrame()
     {
-        if(UseSDKPackets)
+        if (UseSDKPackets)
         {
             RecordSDKFrame();
         }
@@ -1040,57 +1040,57 @@ public class OvrAvatar : MonoBehaviour
         }
     }
 
-	static void ExpressiveGlobalInit()
-	{
-		if (doneExpressiveGlobalInit)
-		{
-			return;
-		}
-		doneExpressiveGlobalInit = true;
+    static void ExpressiveGlobalInit()
+    {
+        if (doneExpressiveGlobalInit)
+        {
+            return;
+        }
+        doneExpressiveGlobalInit = true;
 
-		// Set light info. Lights are shared across all avatar instances.
-		ovrAvatarLights ovrLights = new ovrAvatarLights();
-		ovrLights.ambientIntensity = RenderSettings.ambientLight.grayscale * 0.5f;
-		// This array size has to match the 'MarshalAs' attribute in the ovrAvatarLights declaration.
-		const int maxSize = 16;
-		ovrLights.lights = new ovrAvatarLight[maxSize];
+        // Set light info. Lights are shared across all avatar instances.
+        ovrAvatarLights ovrLights = new ovrAvatarLights();
+        ovrLights.ambientIntensity = RenderSettings.ambientLight.grayscale * 0.5f;
+        // This array size has to match the 'MarshalAs' attribute in the ovrAvatarLights declaration.
+        const int maxSize = 16;
+        ovrLights.lights = new ovrAvatarLight[maxSize];
 
-		Light[] sceneLights = FindObjectsOfType(typeof(Light)) as Light[];
-		int index = 0;
-		for (int i = 0; i < sceneLights.Length; ++i)
-		{
-			Light sceneLight = sceneLights[i];
-			if (sceneLight && sceneLight.enabled)
-			{
-				uint instanceID = (uint) sceneLight.transform.GetInstanceID();
-				switch (sceneLight.type)
-				{
-					case LightType.Directional:
-					{
-						ovrLights.lights[index++] = CreateLightDirectional(instanceID, sceneLight.transform.forward, sceneLight.intensity);
-						break;
-					}
-					case LightType.Point:
-					{
-						ovrLights.lights[index++] = CreateLightPoint(instanceID, sceneLight.transform.position, sceneLight.range, sceneLight.intensity);
-						break;
-					}
-					case LightType.Spot:
-					{
-						ovrLights.lights[index++] = CreateLightSpot(instanceID, sceneLight.transform.position, sceneLight.transform.forward, sceneLight.spotAngle, sceneLight.range, sceneLight.intensity);
-						break;
-					}
-				}
-			}
-			if (index >= maxSize)
-			{
-				break;
-			}
-		}
-		ovrLights.lightCount = (uint) index;
+        Light[] sceneLights = FindObjectsOfType(typeof(Light)) as Light[];
+        int index = 0;
+        for (int i = 0; i < sceneLights.Length; ++i)
+        {
+            Light sceneLight = sceneLights[i];
+            if (sceneLight && sceneLight.enabled)
+            {
+                uint instanceID = (uint)sceneLight.transform.GetInstanceID();
+                switch (sceneLight.type)
+                {
+                    case LightType.Directional:
+                        {
+                            ovrLights.lights[index++] = CreateLightDirectional(instanceID, sceneLight.transform.forward, sceneLight.intensity);
+                            break;
+                        }
+                    case LightType.Point:
+                        {
+                            ovrLights.lights[index++] = CreateLightPoint(instanceID, sceneLight.transform.position, sceneLight.range, sceneLight.intensity);
+                            break;
+                        }
+                    case LightType.Spot:
+                        {
+                            ovrLights.lights[index++] = CreateLightSpot(instanceID, sceneLight.transform.position, sceneLight.transform.forward, sceneLight.spotAngle, sceneLight.range, sceneLight.intensity);
+                            break;
+                        }
+                }
+            }
+            if (index >= maxSize)
+            {
+                break;
+            }
+        }
+        ovrLights.lightCount = (uint)index;
 
-		CAPI.ovrAvatar_UpdateLights(ovrLights);
-	}
+        CAPI.ovrAvatar_UpdateLights(ovrLights);
+    }
 
     static ovrAvatarLight CreateLightDirectional(uint id, Vector3 direction, float intensity)
     {
@@ -1148,7 +1148,7 @@ public class OvrAvatar : MonoBehaviour
         {
             MouthAnchor = CreateHelperObject(head, MOUTH_HEAD_OFFSET, MOUTH_HELPER_NAME);
         }
-        
+
         if (GetComponent<OvrAvatarLocalDriver>() != null)
         {
             if (audioSource == null)
@@ -1255,17 +1255,17 @@ public class OvrAvatar : MonoBehaviour
 
     public void UpdateVoiceData(short[] pcmData, int numChannels)
     {
-      if (lipsyncContext != null && micInput == null)
-      {
-          lipsyncContext.ProcessAudioSamplesRaw(pcmData, numChannels);
-      }
+        if (lipsyncContext != null && micInput == null)
+        {
+            lipsyncContext.ProcessAudioSamplesRaw(pcmData, numChannels);
+        }
     }
     public void UpdateVoiceData(float[] pcmData, int numChannels)
     {
-      if (lipsyncContext != null && micInput == null)
-      {
-          lipsyncContext.ProcessAudioSamplesRaw(pcmData, numChannels);
-      }
+        if (lipsyncContext != null && micInput == null)
+        {
+            lipsyncContext.ProcessAudioSamplesRaw(pcmData, numChannels);
+        }
     }
 
 

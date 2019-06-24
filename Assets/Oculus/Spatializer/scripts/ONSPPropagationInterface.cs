@@ -67,13 +67,13 @@ class ONSPPropagation
     static PropagationInterface FindInterface()
     {
         IntPtr temp;
-        try 
+        try
         {
             WwisePluginInterface.ovrAudio_GetPluginContext(out temp, ClientType.OVRA_CLIENT_TYPE_WWISE_UNKNOWN);
             Debug.Log("Propagation initialized with Wwise Oculus Spatializer plugin");
             return new WwisePluginInterface();
         }
-        catch(System.DllNotFoundException)
+        catch (System.DllNotFoundException)
         {
             // this is fine
         }
@@ -145,7 +145,7 @@ class ONSPPropagation
         int AudioGeometryWriteMeshFile(IntPtr geometry, string filePath);
         int AudioGeometryReadMeshFile(IntPtr geometry, string filePath);
         int AudioGeometryWriteMeshFileObj(IntPtr geometry, string filePath);
-        
+
         /***********************************************************************************/
         // Material API        
         int AudioMaterialGetFrequency(IntPtr material, MaterialProperty property, float frequency, out float value);

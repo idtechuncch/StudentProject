@@ -31,7 +31,7 @@ public class OvrAvatarRemoteDriver : OvrAvatarDriver
 
     public override void UpdateTransforms(IntPtr sdkAvatar)
     {
-        switch(Mode)
+        switch (Mode)
         {
             case PacketMode.SDK:
                 UpdateFromSDKPacket(sdkAvatar);

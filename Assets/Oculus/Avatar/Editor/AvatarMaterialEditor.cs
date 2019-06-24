@@ -5,7 +5,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-public class AvatarMaterialEditor : MaterialEditor {
+public class AvatarMaterialEditor : MaterialEditor
+{
 
     static Dictionary<Material, int> layerVisibilityMasks = new Dictionary<Material, int>();
     const int MaxLayerCount = 8;
@@ -90,7 +91,7 @@ public class AvatarMaterialEditor : MaterialEditor {
         baseMaskParametersCache[(int)LayerMaskType.ViewReflection] = ViewReflectionMaskDefaults;
         baseMaskParametersCache[(int)LayerMaskType.Fresnel] = FresnelMaskDefaults;
         baseMaskParametersCache[(int)LayerMaskType.Pulse] = PulseMaskDefaults;
-        
+
         baseMaskAxisCache[(int)LayerMaskType.Positional] = MaskAxisDefault;
         baseMaskAxisCache[(int)LayerMaskType.ViewReflection] = MaskAxisDefault;
 
@@ -152,7 +153,7 @@ public class AvatarMaterialEditor : MaterialEditor {
             return newColor;
         }
 
-        internal static int IntField(string label, Material material, string propertyName, string[] valueNames) 
+        internal static int IntField(string label, Material material, string propertyName, string[] valueNames)
         {
             int currentValue = material.GetInt(propertyName);
             int newValue = EditorGUILayout.Popup(label, currentValue, valueNames);
@@ -426,7 +427,8 @@ public class AvatarMaterialEditor : MaterialEditor {
                     // Show the mode-specific sample controls
                     EditorGUI.BeginChangeCheck();
                     AvatarMaterialEditorGUILayout.ColorField("Surface color", material, GetPropertyName(LayerColorPrefix, i));
-                    switch (sampleMode) {
+                    switch (sampleMode)
+                    {
                         case LayerSampleMode.Texture:
                             TextureField("Surface texture", material, GetPropertyName(LayerSurfacePrefix, i));
                             AvatarMaterialEditorGUILayout.Vector2Field("Panning speed", material, layerSampleParametersProperty);
@@ -576,7 +578,8 @@ public class AvatarMaterialEditor : MaterialEditor {
             LayerSampleMode sampleMode,
             Vector4 sampleParameters,
             LayerBlendMode blendMode
-        ) {
+        )
+        {
             this.surface = surface;
             this.color = color;
             this.maskType = maskType;

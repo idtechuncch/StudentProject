@@ -17,12 +17,12 @@ using System.Collections;
 /// </summary>
 public class TeleportOrientationHandler360 : TeleportOrientationHandler
 {
-	protected override void InitializeTeleportDestination()
-	{
-	}
+    protected override void InitializeTeleportDestination()
+    {
+    }
 
-	protected override void UpdateTeleportDestination()
-	{
-		LocomotionTeleport.OnUpdateTeleportDestination(AimData.TargetValid, AimData.Destination, null, null);
-	}
+    protected override void UpdateTeleportDestination()
+    {
+        LocomotionTeleport.OnUpdateTeleportDestination(AimData.TargetValid, AimData.Destination, null, null);
+    }
 }

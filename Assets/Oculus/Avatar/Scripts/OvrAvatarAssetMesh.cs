@@ -147,7 +147,7 @@ public class OvrAvatarAssetMesh : OvrAvatarAsset
             mesh.SetIndices(triangles, MeshTopology.Triangles, (int)index);
         }
     }
-   
+
     private void LoadBlendShapes(IntPtr asset, long vertexCount)
     {
         UInt32 blendShapeCount = CAPI.ovrAvatarAsset_GetMeshBlendShapeCount(asset);

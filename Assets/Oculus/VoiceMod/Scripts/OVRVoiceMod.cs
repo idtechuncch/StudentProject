@@ -31,233 +31,233 @@ using System.Runtime.InteropServices;
 /// into the scene once. 
 ///
 /// </summary>
-public class OVRVoiceMod : MonoBehaviour 
+public class OVRVoiceMod : MonoBehaviour
 {
-	public const int ovrVoiceModSuccess = 0;
+    public const int ovrVoiceModSuccess = 0;
 
-	// Error codes that may return from VoiceMod engine
-	public enum ovrVoiceModError 
-	{
-		Unknown = 				-2250,	//< An unknown error has occurred
-		CannotCreateContext = 	-2251, 	//< Unable to create a context
-		InvalidParam = 			-2252,	//< An invalid parameter, e.g. NULL pointer or out of range
-		BadSampleRate = 		-2253,	//< An unsupported sample rate was declared
-		MissingDLL = 			-2254,	//< The DLL or shared library could not be found
-		BadVersion = 			-2255,	//< Mismatched versions between header and libs
-		UndefinedFunction = 	-2256	//< An undefined function 
-	};
+    // Error codes that may return from VoiceMod engine
+    public enum ovrVoiceModError
+    {
+        Unknown = -2250,    //< An unknown error has occurred
+        CannotCreateContext = -2251,    //< Unable to create a context
+        InvalidParam = -2252,   //< An invalid parameter, e.g. NULL pointer or out of range
+        BadSampleRate = -2253,  //< An unsupported sample rate was declared
+        MissingDLL = -2254, //< The DLL or shared library could not be found
+        BadVersion = -2255, //< Mismatched versions between header and libs
+        UndefinedFunction = -2256   //< An undefined function 
+    };
 
-	/// Flags (unused at this time)
-	public enum ovrViceModFlag
-	{
-		None = 0x0000,
-	};
+    /// Flags (unused at this time)
+    public enum ovrViceModFlag
+    {
+        None = 0x0000,
+    };
 
-	/// NOTE: Opaque typedef for voice mod context is an unsigned int (uint)
-	
-	// * * * * * * * * * * * * *
+    /// NOTE: Opaque typedef for voice mod context is an unsigned int (uint)
+
+    // * * * * * * * * * * * * *
     // Import functions
-	public const string strOVRLS = "OVRVoiceMod";
-	[DllImport(strOVRLS)]
-	private static extern int ovrVoiceModDll_Initialize(int SampleRate, int BufferSize);
-	[DllImport(strOVRLS)]
-	private static extern void ovrVoiceModDll_Shutdown();
-	[DllImport(strOVRLS)]
-	private static extern IntPtr ovrVoicemodDll_GetVersion(ref int Major, 
-	                                                       ref int Minor,
-	                                                       ref int Patch);
-	[DllImport(strOVRLS)]
-	private static extern int ovrVoiceModDll_CreateContext(ref uint Context);
-	[DllImport(strOVRLS)]
-	private static extern int ovrVoiceModDll_DestroyContext(uint Context);	
-	[DllImport(strOVRLS)]
-	private static extern int ovrVoiceModDll_SendParameter(uint Context, int Parameter, int Value);
-	[DllImport(strOVRLS)]
-	private static extern int ovrVoiceModDll_ProcessFrame(uint Context, uint Flags, float [] AudioBuffer);
-	[DllImport(strOVRLS)]
-	private static extern int ovrVoiceModDll_ProcessFrameInterleaved(uint Context, uint Flags, float [] AudioBuffer);
-	[DllImport(strOVRLS)]
-	private static extern int ovrVoiceModDll_GetAverageAbsVolume(uint Context, ref float Volume);
+    public const string strOVRLS = "OVRVoiceMod";
+    [DllImport(strOVRLS)]
+    private static extern int ovrVoiceModDll_Initialize(int SampleRate, int BufferSize);
+    [DllImport(strOVRLS)]
+    private static extern void ovrVoiceModDll_Shutdown();
+    [DllImport(strOVRLS)]
+    private static extern IntPtr ovrVoicemodDll_GetVersion(ref int Major,
+                                                           ref int Minor,
+                                                           ref int Patch);
+    [DllImport(strOVRLS)]
+    private static extern int ovrVoiceModDll_CreateContext(ref uint Context);
+    [DllImport(strOVRLS)]
+    private static extern int ovrVoiceModDll_DestroyContext(uint Context);
+    [DllImport(strOVRLS)]
+    private static extern int ovrVoiceModDll_SendParameter(uint Context, int Parameter, int Value);
+    [DllImport(strOVRLS)]
+    private static extern int ovrVoiceModDll_ProcessFrame(uint Context, uint Flags, float[] AudioBuffer);
+    [DllImport(strOVRLS)]
+    private static extern int ovrVoiceModDll_ProcessFrameInterleaved(uint Context, uint Flags, float[] AudioBuffer);
+    [DllImport(strOVRLS)]
+    private static extern int ovrVoiceModDll_GetAverageAbsVolume(uint Context, ref float Volume);
 
-	// * * * * * * * * * * * * *
-	// Public members
-	
-	// * * * * * * * * * * * * *
+    // * * * * * * * * * * * * *
+    // Public members
+
+    // * * * * * * * * * * * * *
     // Static members
-	private static int sOVRVoiceModInit = (int)ovrVoiceModError.Unknown;
+    private static int sOVRVoiceModInit = (int)ovrVoiceModError.Unknown;
 
-	// interface through this static member.
-	public static OVRVoiceMod sInstance = null;
-	
-	// * * * * * * * * * * * * *
-	// MonoBehaviour overrides
+    // interface through this static member.
+    public static OVRVoiceMod sInstance = null;
 
-	/// <summary>
-	/// Awake this instance.
-	/// </summary>
-	void Awake () 
-	{	
-		// We can only have one instance of OVRLipSync in a scene (use this for local property query)
-		if(sInstance == null)
-		{
-			sInstance = this;
-		}
-		else
-		{
-			Debug.LogWarning (System.String.Format ("OVRVoiceMod Awake: Only one instance of OVRVoiceMod can exist in the scene."));
-			return;
-		}
+    // * * * * * * * * * * * * *
+    // MonoBehaviour overrides
 
-		int samplerate;
-		int bufsize;
-		int numbuf;
+    /// <summary>
+    /// Awake this instance.
+    /// </summary>
+    void Awake()
+    {
+        // We can only have one instance of OVRLipSync in a scene (use this for local property query)
+        if (sInstance == null)
+        {
+            sInstance = this;
+        }
+        else
+        {
+            Debug.LogWarning(System.String.Format("OVRVoiceMod Awake: Only one instance of OVRVoiceMod can exist in the scene."));
+            return;
+        }
 
-		// Get the current sample rate
-		samplerate = AudioSettings.outputSampleRate;
-		// Get the current buffer size and number of buffers
-		AudioSettings.GetDSPBufferSize (out bufsize, out numbuf);
+        int samplerate;
+        int bufsize;
+        int numbuf;
 
-		String str = System.String.Format 
-		("OvrVoiceMod Awake: Queried SampleRate: {0:F0} BufferSize: {1:F0}", samplerate, bufsize);
-		Debug.LogWarning (str);
+        // Get the current sample rate
+        samplerate = AudioSettings.outputSampleRate;
+        // Get the current buffer size and number of buffers
+        AudioSettings.GetDSPBufferSize(out bufsize, out numbuf);
 
-		sOVRVoiceModInit = ovrVoiceModDll_Initialize(samplerate, bufsize);
+        String str = System.String.Format
+        ("OvrVoiceMod Awake: Queried SampleRate: {0:F0} BufferSize: {1:F0}", samplerate, bufsize);
+        Debug.LogWarning(str);
 
-		if(sOVRVoiceModInit != ovrVoiceModSuccess)
-		{
-			Debug.LogWarning (System.String.Format
-			("OvrVoiceMod Awake: Failed to init VoiceMod library"));
-		}
+        sOVRVoiceModInit = ovrVoiceModDll_Initialize(samplerate, bufsize);
 
-		// Important: Use the touchpad mechanism for input, call Create on the OVRTouchpad helper class
-		OVRTouchpad.Create();
-	}
-   
-	/// <summary>
-	/// Start this instance.
-	/// Note: make sure to always have a Start function for classes that have editor scripts.
-	/// </summary>
-	void Start()
-	{
-	}
-	
-	/// <summary>
-	/// Run processes that need to be updated in our game thread
-	/// </summary>
-	void Update()
-	{
-	}
+        if (sOVRVoiceModInit != ovrVoiceModSuccess)
+        {
+            Debug.LogWarning(System.String.Format
+            ("OvrVoiceMod Awake: Failed to init VoiceMod library"));
+        }
 
-	/// <summary>
-	/// Raises the destroy event.
-	/// </summary>
-	void OnDestroy()
-	{
-		if(sInstance != this)
-		{
-			Debug.LogWarning ("OVRVoiceMod OnDestroy: This is not the correct OVRVoiceMod instance.");
-		}
+        // Important: Use the touchpad mechanism for input, call Create on the OVRTouchpad helper class
+        OVRTouchpad.Create();
+    }
 
-		ovrVoiceModDll_Shutdown();
-		sOVRVoiceModInit = (int)ovrVoiceModError.Unknown;
-	}
-	
-	// * * * * * * * * * * * * *
-	// Public Functions
-	
-	/// <summary>
-	/// Determines if is initialized.
-	/// </summary>
-	/// <returns><c>true</c> if is initialized; otherwise, <c>false</c>.</returns>
-	public static int IsInitialized()
-	{
-		return sOVRVoiceModInit;
-	}
+    /// <summary>
+    /// Start this instance.
+    /// Note: make sure to always have a Start function for classes that have editor scripts.
+    /// </summary>
+    void Start()
+    {
+    }
 
-	/// <summary>
-	/// Creates the context.
-	/// </summary>
-	/// <returns>The context.</returns>
-	/// <param name="context">Context.</param>
-	public static int CreateContext(ref uint context)
-	{
-		if(IsInitialized() != ovrVoiceModSuccess)
-			return (int)ovrVoiceModError.CannotCreateContext;
+    /// <summary>
+    /// Run processes that need to be updated in our game thread
+    /// </summary>
+    void Update()
+    {
+    }
 
-		return ovrVoiceModDll_CreateContext(ref context);
-	}
+    /// <summary>
+    /// Raises the destroy event.
+    /// </summary>
+    void OnDestroy()
+    {
+        if (sInstance != this)
+        {
+            Debug.LogWarning("OVRVoiceMod OnDestroy: This is not the correct OVRVoiceMod instance.");
+        }
 
-	/// <summary>
-	/// Destroies the context.
-	/// </summary>
-	/// <returns>The context.</returns>
-	/// <param name="context">Context.</param>
-	public static int DestroyContext (uint context)
-	{
-		if(IsInitialized() != ovrVoiceModSuccess)
-			return (int)ovrVoiceModError.Unknown;
+        ovrVoiceModDll_Shutdown();
+        sOVRVoiceModInit = (int)ovrVoiceModError.Unknown;
+    }
 
-		return ovrVoiceModDll_DestroyContext(context);
-	}
+    // * * * * * * * * * * * * *
+    // Public Functions
 
-	/// <summary>
-	/// Sends the parameter.
-	/// </summary>
-	/// <returns>The parameter.</returns>
-	/// <param name="context">Context.</param>
-	/// <param name="parameter">Parameter.</param>
-	/// <param name="value">Value.</param>
-	public static int SendParameter(uint context, int parameter, int value)
-	{
-		if(IsInitialized() != ovrVoiceModSuccess)
-			return (int)ovrVoiceModError.Unknown;
+    /// <summary>
+    /// Determines if is initialized.
+    /// </summary>
+    /// <returns><c>true</c> if is initialized; otherwise, <c>false</c>.</returns>
+    public static int IsInitialized()
+    {
+        return sOVRVoiceModInit;
+    }
 
-		return ovrVoiceModDll_SendParameter(context, parameter, value);
-	}
+    /// <summary>
+    /// Creates the context.
+    /// </summary>
+    /// <returns>The context.</returns>
+    /// <param name="context">Context.</param>
+    public static int CreateContext(ref uint context)
+    {
+        if (IsInitialized() != ovrVoiceModSuccess)
+            return (int)ovrVoiceModError.CannotCreateContext;
 
-	/// <summary>
-	/// Processes the frame.
-	/// </summary>
-	/// <returns>The frame.</returns>
-	/// <param name="context">Context.</param>
-	/// <param name="audioBuffer">Audio buffer.</param>
-	public static int ProcessFrame(uint context, float [] audioBuffer)
-	{
-		if(IsInitialized() != ovrVoiceModSuccess)
-			return (int)ovrVoiceModError.Unknown;
+        return ovrVoiceModDll_CreateContext(ref context);
+    }
 
-		return ovrVoiceModDll_ProcessFrame(context, (uint)ovrViceModFlag.None , audioBuffer);
-	}
+    /// <summary>
+    /// Destroies the context.
+    /// </summary>
+    /// <returns>The context.</returns>
+    /// <param name="context">Context.</param>
+    public static int DestroyContext(uint context)
+    {
+        if (IsInitialized() != ovrVoiceModSuccess)
+            return (int)ovrVoiceModError.Unknown;
 
-	/// <summary>
-	/// Processes the frame interleaved.
-	/// </summary>
-	/// <returns>The frame interleaved.</returns>
-	/// <param name="context">Context.</param>
-	/// <param name="audioBuffer">Audio buffer.</param>
-	public static int ProcessFrameInterleaved(uint context, float [] audioBuffer)
-	{
-		if(IsInitialized() != ovrVoiceModSuccess)
-			return (int)ovrVoiceModError.Unknown;
+        return ovrVoiceModDll_DestroyContext(context);
+    }
 
-		return ovrVoiceModDll_ProcessFrameInterleaved(context, (uint)ovrViceModFlag.None, audioBuffer);
-	}
+    /// <summary>
+    /// Sends the parameter.
+    /// </summary>
+    /// <returns>The parameter.</returns>
+    /// <param name="context">Context.</param>
+    /// <param name="parameter">Parameter.</param>
+    /// <param name="value">Value.</param>
+    public static int SendParameter(uint context, int parameter, int value)
+    {
+        if (IsInitialized() != ovrVoiceModSuccess)
+            return (int)ovrVoiceModError.Unknown;
 
-	/// <summary>
-	/// Gets the average abs volume.
-	/// </summary>
+        return ovrVoiceModDll_SendParameter(context, parameter, value);
+    }
+
+    /// <summary>
+    /// Processes the frame.
+    /// </summary>
+    /// <returns>The frame.</returns>
+    /// <param name="context">Context.</param>
+    /// <param name="audioBuffer">Audio buffer.</param>
+    public static int ProcessFrame(uint context, float[] audioBuffer)
+    {
+        if (IsInitialized() != ovrVoiceModSuccess)
+            return (int)ovrVoiceModError.Unknown;
+
+        return ovrVoiceModDll_ProcessFrame(context, (uint)ovrViceModFlag.None, audioBuffer);
+    }
+
+    /// <summary>
+    /// Processes the frame interleaved.
+    /// </summary>
+    /// <returns>The frame interleaved.</returns>
+    /// <param name="context">Context.</param>
+    /// <param name="audioBuffer">Audio buffer.</param>
+    public static int ProcessFrameInterleaved(uint context, float[] audioBuffer)
+    {
+        if (IsInitialized() != ovrVoiceModSuccess)
+            return (int)ovrVoiceModError.Unknown;
+
+        return ovrVoiceModDll_ProcessFrameInterleaved(context, (uint)ovrViceModFlag.None, audioBuffer);
+    }
+
+    /// <summary>
+    /// Gets the average abs volume.
+    /// </summary>
     /// <returns>The average abs volume.</returns>
-	/// <param name="context">Context.</param>
+    /// <param name="context">Context.</param>
     /// <param name="volume">Volume.</param>
-	public static float GetAverageAbsVolume(uint context)
-	{
-		if(IsInitialized() != ovrVoiceModSuccess)
-			return 0.0f;
+    public static float GetAverageAbsVolume(uint context)
+    {
+        if (IsInitialized() != ovrVoiceModSuccess)
+            return 0.0f;
 
         float volume = 0;
 
-		int result = ovrVoiceModDll_GetAverageAbsVolume(context, ref volume);
+        int result = ovrVoiceModDll_GetAverageAbsVolume(context, ref volume);
 
         return volume;
-	}
+    }
 }

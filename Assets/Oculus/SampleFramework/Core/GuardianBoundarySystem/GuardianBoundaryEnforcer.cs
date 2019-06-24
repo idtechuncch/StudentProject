@@ -11,7 +11,7 @@ public class GuardianBoundaryEnforcer : MonoBehaviour
     // This does mean this script is incompatible with OVRPlayerController. If you want
     // to use them together, you'll need to modify OVRPlayerController to listen to this
     // event instead.
-	public event System.Action TrackingChanged;
+    public event System.Action TrackingChanged;
 
     public bool m_AllowRecenter = true;
     public OVRCameraRig m_mainCamera;
@@ -33,12 +33,12 @@ public class GuardianBoundaryEnforcer : MonoBehaviour
     Quaternion m_orientToOriginalForward;
 
 
-	void Start ()
+    void Start()
     {
         OVRManager.display.RecenteredPose += Recentered;
 
         m_originalTrackerOrientation = OVRPlugin.GetNodePose(OVRPlugin.Node.TrackerZero, OVRPlugin.Step.Render).ToOVRPose().orientation;
-	}
+    }
 
     private void Update()
     {
@@ -47,7 +47,7 @@ public class GuardianBoundaryEnforcer : MonoBehaviour
         if (m_framecount >= 0)
         {
             m_framecount++;
-            if(m_framecount > 2)
+            if (m_framecount > 2)
             {
                 // Implementation of AllowRecenterYaw is a bit complicated. There's no way in our Unity integration to prevent the yaw
                 // recenter. So we transform the trackingSpace node, and hence all of its child cameras, to "undo" the rotation done

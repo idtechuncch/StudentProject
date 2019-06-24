@@ -3,7 +3,8 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class OvrAvatarProjectorRenderComponent : OvrAvatarRenderComponent {
+public class OvrAvatarProjectorRenderComponent : OvrAvatarRenderComponent
+{
 
     Material material;
 
@@ -31,7 +32,7 @@ public class OvrAvatarProjectorRenderComponent : OvrAvatarRenderComponent {
         OvrAvatar.ConvertTransform(render.localTransform, this.transform);
         material.SetMatrix("_ProjectorWorldToLocal", this.transform.worldToLocalMatrix);
         component.UpdateAvatarMaterial(material, render.materialState);
-        
+
     }
 
     void OnDrawGizmos()

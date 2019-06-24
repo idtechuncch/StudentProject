@@ -3,7 +3,8 @@ using System.Collections;
 using System;
 using Oculus.Avatar;
 
-public class OvrAvatarSkinnedMeshRenderPBSComponent : OvrAvatarRenderComponent {
+public class OvrAvatarSkinnedMeshRenderPBSComponent : OvrAvatarRenderComponent
+{
 
     internal void Initialize(ovrAvatarRenderPart_SkinnedMeshRenderPBS skinnedMeshRenderPBS, Shader shader, int thirdPersonLayer, int firstPersonLayer, int sortOrder)
     {

@@ -27,8 +27,8 @@ public class GuardianBoundaryDisplay : MonoBehaviour
 
     void RefreshDisplay()
     {
-		bool configured = OVRManager.boundary.GetConfigured();
-        if(configured)
+        bool configured = OVRManager.boundary.GetConfigured();
+        if (configured)
         {
             LineRenderer lr = GetComponent<LineRenderer>();
             lr.positionCount = 0;
@@ -37,10 +37,10 @@ public class GuardianBoundaryDisplay : MonoBehaviour
             // So rendering them correctly aligned with your guardian bounds in VR is
             // straightforward, and does not require additional transformations as long
             // as this is parented to the TrackingSpace node.
-		    Vector3[] boundaryPoints = OVRManager.boundary.GetGeometry(m_boundaryType);
+            Vector3[] boundaryPoints = OVRManager.boundary.GetGeometry(m_boundaryType);
             lr.positionCount = boundaryPoints.Length + 1;
             Vector3 v;
-            for(int i=0; i<boundaryPoints.Length; ++i)
+            for (int i = 0; i < boundaryPoints.Length; ++i)
             {
                 v = boundaryPoints[i];
                 v.y = 0.0f;
@@ -50,7 +50,7 @@ public class GuardianBoundaryDisplay : MonoBehaviour
             v.y = 0.0f;
             lr.SetPosition(boundaryPoints.Length, v);
         }
-        if(m_errorDisplay)
+        if (m_errorDisplay)
         {
             m_errorDisplay.SetActive(!configured);
         }

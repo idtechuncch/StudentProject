@@ -26,198 +26,198 @@ using System.Collections;
 public class OVRDebugConsole : MonoBehaviour
 {
     public ArrayList messages = new ArrayList();
-    public int       maxMessages = 15;             // The max number of messages displayed
-    public Text      textMsg;                      // text string to display
-	
+    public int maxMessages = 15;             // The max number of messages displayed
+    public Text textMsg;                      // text string to display
+
     // Our instance to allow this script to be called without a direct connection.
-	private static OVRDebugConsole s_Instance = null;
-   
-	// Clear timeout
-	private bool     clearTimeoutOn = false;
-	private float    clearTimeout   = 0.0f;
+    private static OVRDebugConsole s_Instance = null;
 
-	/// <summary>
-	/// Gets the instance.
-	/// </summary>
-	/// <value>The instance.</value>
-	public static OVRDebugConsole instance
-	{
-		get
-		{
-			if (s_Instance == null)
-			{
-				s_Instance = FindObjectOfType(typeof(OVRDebugConsole)) as OVRDebugConsole;
-				
-                if (s_Instance == null)
-				{
-					GameObject console = new GameObject();
-					console.AddComponent<OVRDebugConsole>();
-					console.name = "OVRDebugConsole";
-					s_Instance = FindObjectOfType(typeof(OVRDebugConsole)) as OVRDebugConsole;
-				}	
-			}
-			
-			return s_Instance;
-		}
-	}
-	
-  	/// <summary>
-  	/// Awake this instance.
-  	/// </summary>
-	void Awake()
-	{
-		s_Instance = this;
-		Init();
-		
-	}
+    // Clear timeout
+    private bool clearTimeoutOn = false;
+    private float clearTimeout = 0.0f;
 
-	/// <summary>
-	/// Update this instance.
-	/// </summary>
-	void Update()
-	{
-		if(clearTimeoutOn == true)
-		{
-			clearTimeout -= Time.deltaTime;
-			if(clearTimeout < 0.0f)
-			{
-				Clear();
-				clearTimeout = 0.0f;
-				clearTimeoutOn = false;
-			}
-		}
-	}
-
-	/// <summary>
-	/// Init this instance.
-	/// </summary>
-	public void Init()
-	{
-		if(textMsg == null)
+    /// <summary>
+    /// Gets the instance.
+    /// </summary>
+    /// <value>The instance.</value>
+    public static OVRDebugConsole instance
+    {
+        get
         {
-			Debug.LogWarning("DebugConsole Init WARNING::UI text not set. Will not be able to display anything.");
+            if (s_Instance == null)
+            {
+                s_Instance = FindObjectOfType(typeof(OVRDebugConsole)) as OVRDebugConsole;
+
+                if (s_Instance == null)
+                {
+                    GameObject console = new GameObject();
+                    console.AddComponent<OVRDebugConsole>();
+                    console.name = "OVRDebugConsole";
+                    s_Instance = FindObjectOfType(typeof(OVRDebugConsole)) as OVRDebugConsole;
+                }
+            }
+
+            return s_Instance;
+        }
+    }
+
+    /// <summary>
+    /// Awake this instance.
+    /// </summary>
+    void Awake()
+    {
+        s_Instance = this;
+        Init();
+
+    }
+
+    /// <summary>
+    /// Update this instance.
+    /// </summary>
+    void Update()
+    {
+        if (clearTimeoutOn == true)
+        {
+            clearTimeout -= Time.deltaTime;
+            if (clearTimeout < 0.0f)
+            {
+                Clear();
+                clearTimeout = 0.0f;
+                clearTimeoutOn = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Init this instance.
+    /// </summary>
+    public void Init()
+    {
+        if (textMsg == null)
+        {
+            Debug.LogWarning("DebugConsole Init WARNING::UI text not set. Will not be able to display anything.");
         }
 
-		Clear();
+        Clear();
     }
-	
-	
-	//+++++++++ INTERFACE FUNCTIONS ++++++++++++++++++++++++++++++++
 
-	/// <summary>
-	/// Log the specified message.
-	/// </summary>
-	/// <param name="message">Message.</param>
-	public static void Log(string message)
-	{
-		OVRDebugConsole.instance.AddMessage(message, Color.white);
-	}
 
-	/// <summary>
-	/// Log the specified message and color.
-	/// </summary>
-	/// <param name="message">Message.</param>
-	/// <param name="color">Color.</param>
-	public static void Log(string message, Color color)
-	{
-		OVRDebugConsole.instance.AddMessage(message, color);
-	}
+    //+++++++++ INTERFACE FUNCTIONS ++++++++++++++++++++++++++++++++
 
-	/// <summary>
-	/// Clear this instance.
-	/// </summary>
-	public static void Clear()
-	{
-		OVRDebugConsole.instance.ClearMessages();
-	}
+    /// <summary>
+    /// Log the specified message.
+    /// </summary>
+    /// <param name="message">Message.</param>
+    public static void Log(string message)
+    {
+        OVRDebugConsole.instance.AddMessage(message, Color.white);
+    }
 
-	/// <summary>
-	/// Calls clear after a certain time.
-	/// </summary>
-	/// <param name="timeToClear">Time to clear.</param>
-	public static void ClearTimeout(float timeToClear)
-	{
-		OVRDebugConsole.instance.SetClearTimeout(timeToClear);
-	}
+    /// <summary>
+    /// Log the specified message and color.
+    /// </summary>
+    /// <param name="message">Message.</param>
+    /// <param name="color">Color.</param>
+    public static void Log(string message, Color color)
+    {
+        OVRDebugConsole.instance.AddMessage(message, color);
+    }
 
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		
+    /// <summary>
+    /// Clear this instance.
+    /// </summary>
+    public static void Clear()
+    {
+        OVRDebugConsole.instance.ClearMessages();
+    }
 
-	/// <summary>
-	/// Adds the message.
-	/// </summary>
-	/// <param name="message">Message.</param>
-	/// <param name="color">Color.</param>
-	public void AddMessage(string message, Color color)
-	{
-		messages.Add(message);
-		
-		if(textMsg != null)
-			textMsg.color = color;
+    /// <summary>
+    /// Calls clear after a certain time.
+    /// </summary>
+    /// <param name="timeToClear">Time to clear.</param>
+    public static void ClearTimeout(float timeToClear)
+    {
+        OVRDebugConsole.instance.SetClearTimeout(timeToClear);
+    }
 
-		Display();
-	}
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	/// <summary>
-	/// Clears the messages.
-	/// </summary>
-	public void ClearMessages()
-	{
-		messages.Clear();
+
+    /// <summary>
+    /// Adds the message.
+    /// </summary>
+    /// <param name="message">Message.</param>
+    /// <param name="color">Color.</param>
+    public void AddMessage(string message, Color color)
+    {
+        messages.Add(message);
+
+        if (textMsg != null)
+            textMsg.color = color;
+
         Display();
-	}
+    }
 
-	/// <summary>
-	/// Sets the clear timeout.
-	/// </summary>
-	/// <param name="timeout">Timeout.</param>
-	public void SetClearTimeout(float timeout)
-	{
-		clearTimeout   = timeout;
-		clearTimeoutOn = true;
-	}
+    /// <summary>
+    /// Clears the messages.
+    /// </summary>
+    public void ClearMessages()
+    {
+        messages.Clear();
+        Display();
+    }
 
-	/// <summary>
-	// Prunes the array to fit within the maxMessages limit
-	/// </summary>
-	void Prune()
-	{
-		int diff;
-		if (messages.Count > maxMessages)
-		{
-			if (messages.Count <= 0)
-			{
-				diff = 0;
-			}
-			else
-			{
-				diff = messages.Count - maxMessages;
-			}
-			messages.RemoveRange(0, (int)diff);
-		}		
-	}
-	
-	/// <summary>
-	/// Display this instance.
-	/// </summary>
-	void Display()
-	{
-		if (messages.Count > maxMessages)
-		{
-			Prune();
-		}
-			
-		if(textMsg != null)
+    /// <summary>
+    /// Sets the clear timeout.
+    /// </summary>
+    /// <param name="timeout">Timeout.</param>
+    public void SetClearTimeout(float timeout)
+    {
+        clearTimeout = timeout;
+        clearTimeoutOn = true;
+    }
+
+    /// <summary>
+    // Prunes the array to fit within the maxMessages limit
+    /// </summary>
+    void Prune()
+    {
+        int diff;
+        if (messages.Count > maxMessages)
         {
-			textMsg.text = ""; // Clear text out
-			int x = 0;
+            if (messages.Count <= 0)
+            {
+                diff = 0;
+            }
+            else
+            {
+                diff = messages.Count - maxMessages;
+            }
+            messages.RemoveRange(0, (int)diff);
+        }
+    }
+
+    /// <summary>
+    /// Display this instance.
+    /// </summary>
+    void Display()
+    {
+        if (messages.Count > maxMessages)
+        {
+            Prune();
+        }
+
+        if (textMsg != null)
+        {
+            textMsg.text = ""; // Clear text out
+            int x = 0;
 
             while (x < messages.Count)
             {
- 					textMsg.text += (string)messages[x];
-				    textMsg.text +='\n';
-                    x += 1;
+                textMsg.text += (string)messages[x];
+                textMsg.text += '\n';
+                x += 1;
             }
-		}
-	}	
+        }
+    }
 }

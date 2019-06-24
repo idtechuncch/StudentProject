@@ -4,7 +4,8 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(OVROverlay))]
-public class OVROverlayMeshGenerator : MonoBehaviour {
+public class OVROverlayMeshGenerator : MonoBehaviour
+{
 
     private Mesh _Mesh;
     private List<Vector3> _Verts = new List<Vector3>();
@@ -37,12 +38,12 @@ public class OVROverlayMeshGenerator : MonoBehaviour {
             _CameraRoot = Camera.main.transform.parent;
         }
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         if (!Application.isPlaying)
         {
             UnityEditor.EditorApplication.update += Update;
         }
-        #endif
+#endif
 
         _Awake = true;
     }
@@ -70,8 +71,8 @@ public class OVROverlayMeshGenerator : MonoBehaviour {
             Vector3 position = _CameraRoot ? (_Transform.position - _CameraRoot.position) : _Transform.position;
             Quaternion rotation = _Transform.rotation;
             Vector3 scale = _Transform.lossyScale;
-            Rect rectLeft = _Overlay.overrideTextureRectMatrix ? _Overlay.destRectLeft : new Rect(0,0,1,1);
-            Rect rectRight = _Overlay.overrideTextureRectMatrix ? _Overlay.destRectRight : new Rect(0,0,1,1);
+            Rect rectLeft = _Overlay.overrideTextureRectMatrix ? _Overlay.destRectLeft : new Rect(0, 0, 1, 1);
+            Rect rectRight = _Overlay.overrideTextureRectMatrix ? _Overlay.destRectRight : new Rect(0, 0, 1, 1);
 
             if (_Mesh == null || _LastShape != shape || _LastPosition != position || _LastRotation != rotation || _LastScale != scale || _LastRectLeft != rectLeft || _LastRectRight != rectRight)
             {
@@ -116,7 +117,7 @@ public class OVROverlayMeshGenerator : MonoBehaviour {
         }
     }
 
-	
+
     public static void GenerateMesh(List<Vector3> verts, List<Vector2> uvs, List<int> tris, OVROverlay.OverlayShape shape, Vector3 position, Quaternion rotation, Vector3 scale, Rect rect)
     {
         switch (shape)
@@ -156,7 +157,7 @@ public class OVROverlayMeshGenerator : MonoBehaviour {
         latitudes = Mathf.CeilToInt(latitudes * rect.height);
         longitudes = Mathf.CeilToInt(longitudes * rect.width);
 
-        float minTheta = Mathf.PI * 2 * ( rect.x);
+        float minTheta = Mathf.PI * 2 * (rect.x);
         float minPhi = Mathf.PI * (0.5f - rect.y - rect.height);
 
         float thetaScale = Mathf.PI * 2 * rect.width / longitudes;
@@ -269,9 +270,9 @@ public class OVROverlayMeshGenerator : MonoBehaviour {
 
         for (int i = 0; i < (int)CubeFace.COUNT; i++)
         {
-            for(int j = 0; j < subQuads + 1; j++)
+            for (int j = 0; j < subQuads + 1; j++)
             {
-                for(int k = 0; k < subQuads + 1; k++)
+                for (int k = 0; k < subQuads + 1; k++)
                 {
                     float u = j / (float)subQuads;
                     float v = k / (float)subQuads;
@@ -285,9 +286,9 @@ public class OVROverlayMeshGenerator : MonoBehaviour {
                 }
             }
 
-            for(int j = 0; j < subQuads; j++)
+            for (int j = 0; j < subQuads; j++)
             {
-                for(int k = 0; k < subQuads; k++)
+                for (int k = 0; k < subQuads; k++)
                 {
                     triangles.Add(vertsPerSide * i + ((j + 1) * (subQuads + 1)) + k);
                     triangles.Add(vertsPerSide * i + (j * (subQuads + 1)) + k);
@@ -302,7 +303,7 @@ public class OVROverlayMeshGenerator : MonoBehaviour {
 
 
     public static void BuildQuad(List<Vector3> verts, List<Vector2> uv, List<int> triangles, Rect rect)
-    {        
+    {
         verts.Add(new Vector3(rect.x - 0.5f, (1 - rect.y - rect.height) - 0.5f, 0));
         verts.Add(new Vector3(rect.x - 0.5f, (1 - rect.y) - 0.5f, 0));
         verts.Add(new Vector3(rect.x + rect.width - 0.5f, (1 - rect.y) - 0.5f, 0));
@@ -329,7 +330,7 @@ public class OVROverlayMeshGenerator : MonoBehaviour {
 
         float arcAngle = arcLength / radius;
         float minAngle = scale.x * (-0.5f + rect.x) / radius;
-        
+
         int columns = Mathf.CeilToInt(longitudes * arcAngle / (2 * Mathf.PI));
 
         // we don't want super tall skinny triangles because that can lead to artifacting.

@@ -11,7 +11,7 @@ public class VoiceModEnableSwitch : MonoBehaviour
     /// <param name="target">Target.</param>
     public bool SetActive<T>(int target) where T : MonoBehaviour
     {
-        if((target < 0) || (target >= SwitchTargets.Length))
+        if ((target < 0) || (target >= SwitchTargets.Length))
             return false;
 
         for (int i = 0; i < SwitchTargets.Length; i++)
@@ -39,22 +39,22 @@ public class VoiceModEnableSwitch : MonoBehaviour
         return true;
     }
 
-	/// <summary>
-	/// Sets the active GameObject
-	/// </summary>
-	/// <returns><c>true</c>, if active was set, <c>false</c> otherwise.</returns>
-	/// <param name="target">Target.</param>
-	public bool SetActive(int target)
-	{
-		if((target < 0) || (target >= SwitchTargets.Length))
-			return false;
+    /// <summary>
+    /// Sets the active GameObject
+    /// </summary>
+    /// <returns><c>true</c>, if active was set, <c>false</c> otherwise.</returns>
+    /// <param name="target">Target.</param>
+    public bool SetActive(int target)
+    {
+        if ((target < 0) || (target >= SwitchTargets.Length))
+            return false;
 
-		for (int i = 0; i < SwitchTargets.Length; i++)
-			SwitchTargets[i].SetActive(false);
+        for (int i = 0; i < SwitchTargets.Length; i++)
+            SwitchTargets[i].SetActive(false);
 
-		SwitchTargets[target].SetActive(true);
+        SwitchTargets[target].SetActive(true);
 
-		return true;
-	}
+        return true;
+    }
 }
 

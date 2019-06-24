@@ -20,7 +20,7 @@ public class TeleportTransitionInstant : TeleportTransition
     /// without any delay or other side effects.
     /// </summary>
     protected override void LocomotionTeleportOnEnterStateTeleporting()
-	{
-		LocomotionTeleport.DoTeleport();
-	}
+    {
+        LocomotionTeleport.DoTeleport();
+    }
 }

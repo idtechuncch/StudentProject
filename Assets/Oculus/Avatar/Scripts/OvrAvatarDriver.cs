@@ -3,7 +3,8 @@ using System.Collections;
 using System;
 using Oculus.Avatar;
 
-public abstract class OvrAvatarDriver : MonoBehaviour {
+public abstract class OvrAvatarDriver : MonoBehaviour
+{
 
     public enum PacketMode
     {

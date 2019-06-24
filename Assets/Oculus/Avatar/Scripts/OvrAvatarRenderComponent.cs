@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System;
 using Oculus.Avatar;
 
-public class OvrAvatarRenderComponent : MonoBehaviour {
+public class OvrAvatarRenderComponent : MonoBehaviour
+{
 
     private bool firstSkinnedUpdate = true;
     public SkinnedMeshRenderer mesh;
@@ -129,5 +130,5 @@ public class OvrAvatarRenderComponent : MonoBehaviour {
         return mat;
     }
 
-   
+
 }

@@ -41,9 +41,9 @@ public class OvrAvatarSDKManager : MonoBehaviour
 
         if (appId == "")
         {
-          AvatarLogger.Log("No Oculus App ID has been provided for target platform. " + 
-            "Go to Oculus Avatar > Edit Configuration to supply one", OvrAvatarSettings.Instance);
-          appId = "0";
+            AvatarLogger.Log("No Oculus App ID has been provided for target platform. " +
+              "Go to Oculus Avatar > Edit Configuration to supply one", OvrAvatarSettings.Instance);
+            appId = "0";
         }
 
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -63,8 +63,9 @@ public class OvrAvatarSDKManager : MonoBehaviour
         CAPI.ovrAvatar_Shutdown();
     }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update()
+    {
         IntPtr message = CAPI.ovrAvatarMessage_Pop();
         if (message == IntPtr.Zero)
         {
@@ -164,9 +165,9 @@ public class OvrAvatarSDKManager : MonoBehaviour
     }
 
     public void RequestAvatarSpecification(
-        UInt64 userId, 
-        specificationCallback callback, 
-        bool useCombinedMesh, 
+        UInt64 userId,
+        specificationCallback callback,
+        bool useCombinedMesh,
         ovrAvatarAssetLevelOfDetail lod,
         bool forceMobileTextureFormat,
         ovrAvatarLookAndFeelVersion lookVersion,
@@ -195,8 +196,8 @@ public class OvrAvatarSDKManager : MonoBehaviour
     }
 
     public void BeginLoadingAsset(
-        UInt64 assetId, 
-        ovrAvatarAssetLevelOfDetail lod, 
+        UInt64 assetId,
+        ovrAvatarAssetLevelOfDetail lod,
         assetLoadedCallback callback)
     {
         HashSet<assetLoadedCallback> callbackSet;
@@ -213,7 +214,7 @@ public class OvrAvatarSDKManager : MonoBehaviour
     }
 
     public void RegisterCombinedMeshCallback(
-        IntPtr sdkAvatar, 
+        IntPtr sdkAvatar,
         combinedMeshLoadedCallback callback)
     {
         combinedMeshLoadedCallback currentCallback;

@@ -6,8 +6,8 @@ namespace ExtraMath
     {
         // Define constants with Decimal precision and cast down to double.
 
-        public const double E = (double) 2.7182818284590452353602874714M; // 2.718281828459045
-        public const double Sqrt2 = (double) 1.4142135623730950488016887242M; // 1.414213562373095
+        public const double E = (double)2.7182818284590452353602874714M; // 2.718281828459045
+        public const double Sqrt2 = (double)1.4142135623730950488016887242M; // 1.414213562373095
 
         // If Godot is using single-precision, then we should be lenient with Epsilon comparisons.
         // Any Godot types imported into here would still be limited by the precision of real_t.

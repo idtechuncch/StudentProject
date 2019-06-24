@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class NativeVideoPlayer {
+public static class NativeVideoPlayer
+{
 
     private static System.IntPtr? _Activity;
     private static System.IntPtr? _VideoPlayerClass;
@@ -13,7 +14,7 @@ public static class NativeVideoPlayer {
         {
             if (!_VideoPlayerClass.HasValue)
             {
-                try 
+                try
                 {
                     System.IntPtr myVideoPlayerClass = AndroidJNI.FindClass("com/oculus/videoplayer/MyVideoPlayer");
 
@@ -29,7 +30,7 @@ public static class NativeVideoPlayer {
                         _VideoPlayerClass = System.IntPtr.Zero;
                     }
                 }
-                catch(System.Exception ex)
+                catch (System.Exception ex)
                 {
                     Debug.LogError("Failed to find MyVideoPlayer class");
                     Debug.LogException(ex);
@@ -57,7 +58,7 @@ public static class NativeVideoPlayer {
                     AndroidJNI.DeleteLocalRef(activity);
                     AndroidJNI.DeleteLocalRef(unityPlayerClass);
                 }
-                catch(System.Exception ex)
+                catch (System.Exception ex)
                 {
                     Debug.LogException(ex);
                     _Activity = System.IntPtr.Zero;
@@ -116,7 +117,7 @@ public static class NativeVideoPlayer {
             resumeMethodId = AndroidJNI.GetStaticMethodID(VideoPlayerClass, "resume", "()V");
         }
 
-        AndroidJNI.CallStaticVoidMethod(VideoPlayerClass, resumeMethodId, new jvalue[0]);        
+        AndroidJNI.CallStaticVoidMethod(VideoPlayerClass, resumeMethodId, new jvalue[0]);
     }
 
     public static void Pause()
@@ -126,7 +127,7 @@ public static class NativeVideoPlayer {
             pauseMethodId = AndroidJNI.GetStaticMethodID(VideoPlayerClass, "pause", "()V");
         }
 
-        AndroidJNI.CallStaticVoidMethod(VideoPlayerClass, pauseMethodId, new jvalue[0]);        
+        AndroidJNI.CallStaticVoidMethod(VideoPlayerClass, pauseMethodId, new jvalue[0]);
     }
 
     public static void SetPlaybackSpeed(float speed)

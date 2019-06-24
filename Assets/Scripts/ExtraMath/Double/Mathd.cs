@@ -96,8 +96,10 @@ namespace ExtraMath
             };
             double abs = Mathd.Abs(step);
             double decs = abs - (int)abs; // Strip away integer part
-            for (int i = 0; i < sd.Length; i++) {
-                if (decs >= sd[i]) {
+            for (int i = 0; i < sd.Length; i++)
+            {
+                if (decs >= sd[i])
+                {
                     return i;
                 }
             }
@@ -155,13 +157,14 @@ namespace ExtraMath
 
         public static double InverseLerp(double from, double to, double weight)
         {
-           return (weight - from) / (to - from);
+            return (weight - from) / (to - from);
         }
 
         public static bool IsEqualApprox(double a, double b)
         {
             double tolerance = Epsilon * Abs(a);
-            if (tolerance < Epsilon) {
+            if (tolerance < Epsilon)
+            {
                 tolerance = Epsilon;
             }
             return Abs(a - b) < tolerance;
@@ -169,12 +172,12 @@ namespace ExtraMath
 
         public static bool IsInf(double s)
         {
-           return double.IsInfinity(s);
+            return double.IsInfinity(s);
         }
 
         public static bool IsNaN(double s)
         {
-           return double.IsNaN(s);
+            return double.IsNaN(s);
         }
 
         public static bool IsZeroApprox(double s)

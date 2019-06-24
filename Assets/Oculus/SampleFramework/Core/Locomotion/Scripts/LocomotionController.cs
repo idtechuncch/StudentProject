@@ -37,7 +37,7 @@ public class LocomotionController : MonoBehaviour
             PlayerController = GetComponentInParent<OVRPlayerController>();
         }
         Assert.IsNotNull(PlayerController);
-        if(CameraRig == null)
+        if (CameraRig == null)
         {
             CameraRig = FindObjectOfType<OVRCameraRig>();
         }
@@ -45,5 +45,5 @@ public class LocomotionController : MonoBehaviour
 #if UNITY_EDITOR
         OVRPlugin.SendEvent("locomotion_controller", (SceneManager.GetActiveScene().name == "Locomotion").ToString(), "sample_framework");
 #endif
-	}
+    }
 }

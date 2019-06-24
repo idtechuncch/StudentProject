@@ -19,16 +19,16 @@ public class BoundsLockedObject : MonoBehaviour
         m_enforcer.TrackingChanged += RefreshDisplay;
         m_initialOffset = gameObject.transform.position - m_playerOrigin.transform.position;
         Renderer renderer = gameObject.GetComponent<Renderer>();
-        if(renderer != null)
+        if (renderer != null)
         {
             m_bounds = renderer.bounds;
         }
         RefreshDisplay();
     }
 
-	void RefreshDisplay()
+    void RefreshDisplay()
     {
-		bool configured = OVRManager.boundary.GetConfigured();
+        bool configured = OVRManager.boundary.GetConfigured();
         if (configured)
         {
             Vector3[] boundaryPoints = OVRManager.boundary.GetGeometry(OVRBoundary.BoundaryType.PlayArea);
@@ -49,7 +49,7 @@ public class BoundsLockedObject : MonoBehaviour
                 zMax = Mathf.Max(zMax, boundaryPoints[i].z);
             }
 
-            if(m_bounds != null)
+            if (m_bounds != null)
             {
                 float halfWidth = ((Bounds)m_bounds).size.x * 0.5f;
                 float halfLength = ((Bounds)m_bounds).size.z * 0.5f;
@@ -72,5 +72,5 @@ public class BoundsLockedObject : MonoBehaviour
 
             gameObject.transform.position = newPos;
         }
-	}
+    }
 }

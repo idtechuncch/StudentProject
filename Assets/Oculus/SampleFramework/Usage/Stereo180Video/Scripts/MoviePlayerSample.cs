@@ -3,7 +3,7 @@
 Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.  
 
 See SampleFramework license.txt for license terms.  Unless required by applicable law 
-or agreed to in writing, the sample code is provided “AS IS” WITHOUT WARRANTIES OR 
+or agreed to in writing, the sample code is provided ï¿½AS ISï¿½ WITHOUT WARRANTIES OR 
 CONDITIONS OF ANY KIND, either express or implied.  See the license for specific 
 language governing permissions and limitations under the license.
 
@@ -15,11 +15,11 @@ using System.IO;
 
 public class MoviePlayerSample : MonoBehaviour
 {
-    private bool    videoPausedBeforeAppPause = false;
+    private bool videoPausedBeforeAppPause = false;
 
-	private UnityEngine.Video.VideoPlayer videoPlayer = null;
-	private OVROverlay          overlay = null;
-	private Renderer 			mediaRenderer = null;
+    private UnityEngine.Video.VideoPlayer videoPlayer = null;
+    private OVROverlay overlay = null;
+    private Renderer mediaRenderer = null;
 
     public bool isPlaying { get; private set; }
 
@@ -68,10 +68,10 @@ public class MoviePlayerSample : MonoBehaviour
     private System.Collections.IEnumerator Start()
     {
         if (mediaRenderer.material == null)
-		{
-			Debug.LogError("No material for movie surface");
+        {
+            Debug.LogError("No material for movie surface");
             yield break;
-		}
+        }
 
         // wait 1 second to start (there is a bug in Unity where starting
         // the video too soon will cause it to fail to load)
@@ -121,7 +121,7 @@ public class MoviePlayerSample : MonoBehaviour
                 Debug.Log("Playing Unity VideoPlayer");
                 videoPlayer.url = moviePath;
                 videoPlayer.Prepare();
-                videoPlayer.Play();                
+                videoPlayer.Play();
             }
 
             Debug.Log("MovieSample Start");
@@ -159,9 +159,9 @@ public class MoviePlayerSample : MonoBehaviour
         isPlaying = false;
     }
 
-	void Update()
-	{
-        if (!overlay.isExternalSurface)            
+    void Update()
+    {
+        if (!overlay.isExternalSurface)
         {
             var displayTexture = videoPlayer.texture != null ? videoPlayer.texture : Texture2D.blackTexture;
             if (overlay.enabled)
@@ -181,7 +181,7 @@ public class MoviePlayerSample : MonoBehaviour
                 mediaRenderer.material.SetVector("_SrcRectRight", overlay.srcRectRight.ToVector());
             }
         }
-	}
+    }
 
     public void Rewind()
     {
@@ -194,7 +194,7 @@ public class MoviePlayerSample : MonoBehaviour
             videoPlayer.playbackSpeed = -1;
         }
     }
-    
+
     public void Stop()
     {
         if (overlay.isExternalSurface)
@@ -219,7 +219,7 @@ public class MoviePlayerSample : MonoBehaviour
         {
             videoPausedBeforeAppPause = !isPlaying;
         }
-        
+
         // Pause/unpause the video only if it had been playing prior to app pause
         if (!videoPausedBeforeAppPause)
         {

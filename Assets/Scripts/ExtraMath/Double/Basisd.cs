@@ -182,26 +182,26 @@ namespace ExtraMath
                 switch (columnIndex)
                 {
                     case 0:
-                    {
-                        var column0 = Column0;
-                        column0[rowIndex] = value;
-                        Column0 = column0;
-                        return;
-                    }
+                        {
+                            var column0 = Column0;
+                            column0[rowIndex] = value;
+                            Column0 = column0;
+                            return;
+                        }
                     case 1:
-                    {
-                        var column1 = Column1;
-                        column1[rowIndex] = value;
-                        Column1 = column1;
-                        return;
-                    }
+                        {
+                            var column1 = Column1;
+                            column1[rowIndex] = value;
+                            Column1 = column1;
+                            return;
+                        }
                     case 2:
-                    {
-                        var column2 = Column2;
-                        column2[rowIndex] = value;
-                        Column2 = column2;
-                        return;
-                    }
+                        {
+                            var column2 = Column2;
+                            column2[rowIndex] = value;
+                            Column2 = column2;
+                            return;
+                        }
                     default:
                         throw new IndexOutOfRangeException();
                 }

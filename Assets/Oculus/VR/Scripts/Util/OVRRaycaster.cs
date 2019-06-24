@@ -69,21 +69,21 @@ public class OVRRaycaster : GraphicRaycaster, IPointerEnterHandler
         }
     }
 
-	protected override void Start()
-	{
-		if(!canvas.worldCamera)
-		{
-			Debug.Log("Canvas does not have an event camera attached. Attaching OVRCameraRig.centerEyeAnchor as default.");
-			OVRCameraRig rig = FindObjectOfType<OVRCameraRig>();
-			canvas.worldCamera = rig.centerEyeAnchor.gameObject.GetComponent<Camera>();
-		}
-	}
+    protected override void Start()
+    {
+        if (!canvas.worldCamera)
+        {
+            Debug.Log("Canvas does not have an event camera attached. Attaching OVRCameraRig.centerEyeAnchor as default.");
+            OVRCameraRig rig = FindObjectOfType<OVRCameraRig>();
+            canvas.worldCamera = rig.centerEyeAnchor.gameObject.GetComponent<Camera>();
+        }
+    }
 
-	/// <summary>
-	/// For the given ray, find graphics on this canvas which it intersects and are not blocked by other
-	/// world objects
-	/// </summary>
-	[NonSerialized]
+    /// <summary>
+    /// For the given ray, find graphics on this canvas which it intersects and are not blocked by other
+    /// world objects
+    /// </summary>
+    [NonSerialized]
     private List<RaycastHit> m_RaycastResults = new List<RaycastHit>();
     private void Raycast(PointerEventData eventData, List<RaycastResult> resultAppendList, Ray ray, bool checkForBlocking)
     {
@@ -318,7 +318,7 @@ public class OVRRaycaster : GraphicRaycaster, IPointerEnterHandler
         {
             // Gaze has entered this canvas. We'll make it the active one so that canvas-mouse pointer can be used.
             OVRInputModule inputModule = EventSystem.current.currentInputModule as OVRInputModule;
-            if(inputModule != null)
+            if (inputModule != null)
             {
                 inputModule.activeGraphicRaycaster = this;
             }

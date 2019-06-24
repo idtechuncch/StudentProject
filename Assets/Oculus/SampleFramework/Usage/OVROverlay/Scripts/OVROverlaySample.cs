@@ -55,7 +55,7 @@ namespace OculusSampleFramework
         /// </summary>
         Toggle applicationRadioButton;
         Toggle noneRadioButton;
-        
+
         [Header("App vs Compositor Comparison Settings")]
         /// <summary>
         /// The main camera used to calculate reprojected OVROverlay quad
@@ -66,7 +66,7 @@ namespace OculusSampleFramework
         /// The camera used to render UI panels
         /// </summary>
         public GameObject uiCamera;
-        
+
         /// <summary>
         /// The parents of grouped UI panels
         /// </summary>
@@ -118,7 +118,7 @@ namespace OculusSampleFramework
             DebugUIBuilder.instance.AddRadio("OVROverlay", "group", delegate (Toggle t) { RadioPressed(ovrOverlayID, "group", t); }).GetComponentInChildren<Toggle>();
             applicationRadioButton = DebugUIBuilder.instance.AddRadio("Application", "group", delegate (Toggle t) { RadioPressed(applicationID, "group", t); }).GetComponentInChildren<Toggle>();
             noneRadioButton = DebugUIBuilder.instance.AddRadio("None", "group", delegate (Toggle t) { RadioPressed(noneID, "group", t); }).GetComponentInChildren<Toggle>();
-        
+
             DebugUIBuilder.instance.Show();
 
             // Start with Overlay Quad
@@ -147,7 +147,7 @@ namespace OculusSampleFramework
         #endregion
 
         #region Private Functions
-        
+
         /// <summary>
         /// Usage: Activate the world geometry and deactivate OVROverlay display
         /// </summary>
@@ -238,9 +238,9 @@ namespace OculusSampleFramework
             float overlayRadius = cameraRenderOverlay.transform.localScale.z;
 
 #if UNITY_ANDROID
-		// Gear VR display panel resolution
-		float hmdPanelResWidth = 2560;
-		float hmdPanelResHeight = 1440;
+            // Gear VR display panel resolution
+            float hmdPanelResWidth = 2560;
+            float hmdPanelResHeight = 1440;
 #else
             // Rift display panel resolution
             float hmdPanelResWidth = 2160;

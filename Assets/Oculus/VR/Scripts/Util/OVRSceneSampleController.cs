@@ -108,8 +108,8 @@ public class OVRSceneSampleController : MonoBehaviour
         // Make sure to hide cursor
         if (Application.isEditor == false)
         {
-			Cursor.visible = false;
-			Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         // CameraController updates
@@ -143,7 +143,7 @@ public class OVRSceneSampleController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.M))
 #if UNITY_2017_2_OR_NEWER
-			UnityEngine.XR.XRSettings.showDeviceView = !UnityEngine.XR.XRSettings.showDeviceView;
+            UnityEngine.XR.XRSettings.showDeviceView = !UnityEngine.XR.XRSettings.showDeviceView;
 #else
 			UnityEngine.VR.VRSettings.showDeviceView = !UnityEngine.VR.VRSettings.showDeviceView;
 #endif

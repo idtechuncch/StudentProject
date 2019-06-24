@@ -55,17 +55,17 @@ namespace OculusSampleFramework
         void OnTriggerEnter(Collider otherCollider)
         {
             DistanceGrabbable dg = otherCollider.GetComponentInChildren<DistanceGrabbable>();
-            if(dg)
+            if (dg)
             {
                 dg.InRange = true;
             }
 
         }
-        
+
         void OnTriggerExit(Collider otherCollider)
         {
             DistanceGrabbable dg = otherCollider.GetComponentInChildren<DistanceGrabbable>();
-            if(dg)
+            if (dg)
             {
                 dg.InRange = false;
             }
