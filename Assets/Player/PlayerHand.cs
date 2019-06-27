@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
-public class Player : MonoBehaviour
+public class PlayerHand : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -19,9 +18,11 @@ public class Player : MonoBehaviour
 }
 
 /*
- * To move the player, manipulate the transform.position variable.
- * If you want physics, add a Rigidbody and collider, and change rb.velocity.
- * 
+ * To raycast from the controller to hit another object, put this in the script:
+ *     RaycastHit hit;
+ *     if (Physics.Raycast(transform.position, transform.forward, out hit))
+ * Note: The target object needs a collider.
+ *
  * Here's a quick reference for the inputs:
  *
  * These return bools:

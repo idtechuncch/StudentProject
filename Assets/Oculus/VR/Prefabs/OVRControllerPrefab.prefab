@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 4464436526328426}
   - component: {fileID: 33356632527651328}
   - component: {fileID: 23705978566827108}
+  - component: {fileID: 1568034466874227029}
   m_Layer: 0
   m_Name: OculusGoControllerModel
   m_TagString: Untagged
@@ -124,6 +125,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1568034466874227029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956530202777762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9075bbc78e80e0f40b88e40dca0ef86a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2505244258458212691
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +148,6 @@ GameObject:
   - component: {fileID: 5281496780291720523}
   - component: {fileID: 5674159212202366648}
   - component: {fileID: 441476669181525795}
-  - component: {fileID: 3487840800497036504}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -202,17 +214,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &3487840800497036504
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2505244258458212691}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
